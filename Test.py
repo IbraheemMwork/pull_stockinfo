@@ -18,12 +18,15 @@ def get_latest_news(symbol, api_key):
 
 if __name__ == "__main__":
     symbol = input("Enter stock symbol: ").upper()
+    if symbol == "":
+        print("ENTER VALID SYMBOL!")
+        exit()
     news = get_latest_news(symbol, API_KEY)
     if isinstance(news, list):
         for article in news:
             print(f"Title: {article.get('title')}")
-            print(f"Date/Time: {article.get('time_published')}")
+            print(f"Date: {article.get('time_published')}")
             print(f"Summary: {article.get('summary')}")
-            print(f"URL: {article.get('url')}\n")
+            print(f"Link: {article.get('url')}\n")
     else:
         print(news)
