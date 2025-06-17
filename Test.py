@@ -20,6 +20,9 @@ if __name__ == "__main__":
     symbol = input("Enter stock symbol: ").upper()
     if symbol == "":
         print("ENTER VALID SYMBOL!")
+    elif not symbol.isalpha():
+        print("SYMBOL MUST BE ALPHABETIC!")
+    elif not symbol: 
         exit()
     news = get_latest_news(symbol, API_KEY)
     if isinstance(news, list):
