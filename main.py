@@ -63,6 +63,9 @@ def index():
                 news = [article for article in all_news if "analyst" in article.get('title', '').lower()]
             else:
                 error = all_news
+    articles = get_latest_news(symbol, API_KEY)
+    if not articles:
+        error = "No news found!"
     return render_template_string(HTML_TEMPLATE, news=news, error=error, symbol=symbol)
 
 if __name__ == "__main__":
