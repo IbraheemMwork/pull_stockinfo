@@ -22,6 +22,7 @@ def get_latest_news(symbol, api_key):
 HTML_TEMPLATE = """
 <!doctype html>
 <title>Stock News</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <h1>Get Latest Analyst News for a Stock</h1>
 <form method="post">
     <input name="symbol" placeholder="Enter stock symbol" value="{{ symbol|default('') }}">
@@ -34,7 +35,7 @@ HTML_TEMPLATE = """
     <h2>Analyst News for {{ symbol.upper() }}</h2>
     {% for article in news %}
         <div style="margin-bottom:20px;">
-            <strong>{{ article.title }}</strong><br>
+            <strong><h3>{{ article.title }}</h3></strong>
             <em>{{ article.time_published }}</em><br>
             <p>{{ article.summary }}</p>
             <a href="{{ article.url }}" target="_blank">Read more</a>
