@@ -1,2 +1,2 @@
-# pull_stockinfo
-To grab the latest information of a stock ticker. 
+# Pull Stock Information 
+To grab the latest analyst information of a stock ticker. 
