@@ -3,7 +3,7 @@ import requests
 from datetime import datetime
 import os
 
-API_KEY = os.getenv("ALPHA_VANTAGE_KEY")  # Replace with your actual API key
+API_KEY = os.getenv("ALPHA_VANTAGE_KEY")  # Replace in render with your actual API key or set it as an environment variable
 
 #Flask app setup
 app = Flask(__name__)
@@ -79,9 +79,6 @@ def index():
                         news.append(article)
             else:
                 error = all_news
-    articles = get_latest_news(symbol, API_KEY)
-    if not articles:
-        error = "No news found!"
     return render_template_string(HTML_TEMPLATE, news=news, error=error, symbol=symbol)
 
 if __name__ == "__main__":
