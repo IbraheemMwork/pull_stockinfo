@@ -1,5 +1,6 @@
 from flask import Flask, render_template_string, request
 import requests
+from datetime import datetime
 
 API_KEY = "d18v5i1r01qkcat52pbgd18v5i1r01qkcat52pc0"  # Replace with your actual API key
 
@@ -19,9 +20,16 @@ def get_latest_news(symbol, api_key):
     else:
         return data.get("Note", "No news found.")
 
+def format_time_published(time_str):
+    try:
+        dt = datetime.strptime(time_str, "%Y%m%dT%H%M%S")
+        return dt.strftime("%m/%d/%Y - %H:%M")
+    except Exception:
+        return time_str
+
 HTML_TEMPLATE = """
 <!doctype html>
-<title>Stock News</title>
+<title>Analyst News</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <h1>Get Latest Analyst News for a Stock</h1>
 <form method="post">
@@ -32,7 +40,7 @@ HTML_TEMPLATE = """
     <p style="color:red;">{{ error }}</p>
 {% endif %}
 {% if news %}
-    <h2>Analyst News for {{ symbol.upper() }}</h2>
+    <h2>Analyst News for {{ symbol.upper() }}:</h2>
     {% for article in news %}
         <div style="margin-bottom:20px;">
             <strong><h3>{{ article.title }}</h3></strong>
@@ -44,6 +52,8 @@ HTML_TEMPLATE = """
         <p>No analyst news found.</p>
     {% endfor %}
 {% endif %}
+<footer>
+    <P><b> This website was made by Ibraheem Malik. Please connect on Linkedin: <a href="https://www.linkedin.com/in/ibraheem-malik/">Ibraheem Malik</a></b></P>
 """
 
 @app.route("/", methods=["GET", "POST"])
@@ -60,7 +70,11 @@ def index():
         else:
             all_news = get_latest_news(symbol, API_KEY)
             if isinstance(all_news, list):
-                news = [article for article in all_news if "analyst" in article.get('title', '').lower()]
+                news = []
+                for article in all_news:
+                    if "analyst" in article.get('title', '').lower():
+                        article['time_published'] = format_time_published(article.get('time_published', ''))
+                        news.append(article)
             else:
                 error = all_news
     articles = get_latest_news(symbol, API_KEY)
