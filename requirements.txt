@@ -2,5 +2,6 @@ flask
 yfinance
 pandas
 matplotlib
+requests
 statsmodels
 gunicorn
