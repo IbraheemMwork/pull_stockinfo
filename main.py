@@ -4,6 +4,7 @@ from datetime import datetime
 
 API_KEY = "d18v5i1r01qkcat52pbgd18v5i1r01qkcat52pc0"  # Replace with your actual API key
 
+#Flask app setup
 app = Flask(__name__)
 
 def get_latest_news(symbol, api_key):
