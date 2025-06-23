@@ -3,7 +3,7 @@ import requests
 from datetime import datetime
 import os
 
-API_KEY = os.getenv("d18v5i1r01qkcat52pbgd18v5i1r01qkcat52pc0")  # Replace with your actual API key
+API_KEY = os.getenv("ALPHA_VANTAGE_KEY")  # Replace with your actual API key
 
 #Flask app setup
 app = Flask(__name__)
